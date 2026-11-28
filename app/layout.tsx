@@ -22,7 +22,7 @@ const mono = JetBrains_Mono({
   display: "swap",
 });
 
-const title = "Ashish Sharma | Frontend Developer";
+const title = "Ashish Sharma - The Daily Build (Web Developer)";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
