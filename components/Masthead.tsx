@@ -23,7 +23,7 @@ export function Masthead() {
           style={{ fontSize: "clamp(1.5rem, 5.2cqw, 4rem)" }}
           className="order-2 text-center font-display font-black leading-[0.9] tracking-tighter text-ink sm:order-none sm:whitespace-nowrap"
         >
-          THE ASHISH DISPATCH
+          THE DAILY BUILD
         </p>
 
         <div className="hidden justify-self-end sm:block">
