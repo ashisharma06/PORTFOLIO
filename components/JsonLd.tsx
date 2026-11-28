@@ -14,7 +14,6 @@ const person = {
   description: summary,
   url: siteUrl,
   email: `mailto:${profile.email}`,
-  telephone: profile.phone,
   address: {
     "@type": "PostalAddress",
     addressLocality,

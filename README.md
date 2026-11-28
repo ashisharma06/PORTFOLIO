@@ -31,7 +31,7 @@ For a standalone type check, run `npx tsc --noEmit`.
 
 All portfolio facts live in [`content/data.ts`](content/data.ts). This is the single source of truth—avoid hard-coding new names, metrics, employers, or links into components.
 
-- `profile` — name, role, location, email, phone, GitHub, LinkedIn.
+- `profile` — name, role, location, email, GitHub, LinkedIn.
 - `summary` — the lead paragraph and the source for the “55,000+ rows” number shown in the hero.
 - `achievements` — wins and participation entries shown in the Wins section and ticker.
 - `projects` — project cards, including bullets, tech tags, and optional links.

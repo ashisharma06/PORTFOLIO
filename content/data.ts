@@ -3,7 +3,6 @@ export type Profile = {
   role: string;
   location: string;
   email: string;
-  phone: string;
   github: string;
   linkedin: string;
 };
@@ -49,7 +48,6 @@ export const profile: Profile = {
   role: "Frontend Developer & CSE (Data Science) Student",
   location: "Bengaluru, India",
   email: "ashish060206@gmail.com",
-  phone: "+91 7483498670",
   github: "https://github.com/ashisharma06",
   linkedin: "https://www.linkedin.com/in/ashish-sharma-13b195295",
 };

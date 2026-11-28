@@ -8,11 +8,6 @@ import { Stamp } from "@/components/ui/Stamp";
 
 const rows = [
   { label: "EMAIL", value: profile.email, href: `mailto:${profile.email}` },
-  {
-    label: "PHONE",
-    value: profile.phone,
-    href: `tel:${profile.phone.replace(/\s/g, "")}`,
-  },
   { label: "GITHUB", value: profile.github, href: profile.github },
   { label: "LINKEDIN", value: profile.linkedin, href: profile.linkedin },
 ];
