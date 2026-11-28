@@ -88,6 +88,13 @@ export const achievements: Achievement[] = [
   },
 ];
 
+// TODO: replace PASTE_DOCUMIND_REPO_URL with the exact DocuMind repository URL.
+const DOCUMIND_REPO_URL = "PASTE_DOCUMIND_REPO_URL";
+const docuMindGithub =
+  DOCUMIND_REPO_URL === "PASTE_DOCUMIND_REPO_URL"
+    ? "https://github.com/ashisharma06"
+    : DOCUMIND_REPO_URL;
+
 export const projects: Project[] = [
   {
     title: "Dashify",
@@ -101,8 +108,7 @@ export const projects: Project[] = [
     ],
     tech: ["React", "JavaScript", "Vercel"],
     links: {
-      // TODO: add Dashify live demo URL
-      live: "",
+      live: "https://dashify-cyan.vercel.app/",
     },
   },
   {
@@ -115,8 +121,7 @@ export const projects: Project[] = [
     ],
     tech: ["Next.js", "TypeScript", "Framer Motion", "REST", "GraphQL"],
     links: {
-      // TODO: add BlogSeek live demo URL
-      live: "",
+      live: "https://blogseek.vercel.app/",
     },
   },
   {
@@ -129,8 +134,7 @@ export const projects: Project[] = [
     ],
     tech: ["Python", "LangChain", "Gemini", "ChromaDB", "Streamlit"],
     links: {
-      // TODO: add DocuMind GitHub repository URL
-      github: "",
+      github: docuMindGithub,
     },
   },
   {
@@ -154,8 +158,7 @@ export const projects: Project[] = [
       "Gemini",
     ],
     links: {
-      // TODO: add Commit Story live demo URL
-      live: "",
+      live: "https://commit-story-mu.vercel.app/",
       // TODO: add Commit Story GitHub repository URL
       github: "",
     },

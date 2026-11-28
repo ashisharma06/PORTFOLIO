@@ -1,8 +1,9 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { useCallback, useRef, useState } from "react";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { projects } from "@/content/data";
-import { Label } from "@/components/ui/Label";
+import { ProjectModal } from "@/components/ProjectModal";
 
 function DashifyMark() {
   const heights = [18, 30, 24, 42, 34, 50];
@@ -147,9 +148,19 @@ function Signature({ title }: { title: string }) {
 
 export function Projects() {
   const reduceMotion = useReducedMotion();
+  const [activeProject, setActiveProject] = useState<number | null>(null);
+  const activeTriggerRef = useRef<HTMLElement | null>(null);
+  const closeModal = useCallback(() => setActiveProject(null), []);
+
+  const openProject = (index: number, trigger: HTMLElement) => {
+    activeTriggerRef.current = trigger;
+    trigger.focus();
+    setActiveProject(index);
+  };
 
   return (
-    <div className="grid grid-cols-1 gap-10 md:grid-cols-2 md:gap-12">
+    <>
+      <div className="grid grid-cols-1 gap-10 md:grid-cols-2 md:gap-12">
       {projects.map((project, index) => {
         const rotation = index % 2 === 0 ? -1.5 : 1.5;
         const number = String(index + 1).padStart(2, "0");
@@ -157,8 +168,19 @@ export function Projects() {
         return (
           <motion.article
             key={project.title}
+            role="button"
+            tabIndex={0}
+            aria-haspopup="dialog"
+            aria-expanded={activeProject === index}
             aria-labelledby={`project-${index}`}
             data-cursor-label="VIEW"
+            onClick={(event) => openProject(index, event.currentTarget)}
+            onKeyDown={(event) => {
+              if (event.key === "Enter" || event.key === " ") {
+                event.preventDefault();
+                openProject(index, event.currentTarget);
+              }
+            }}
             initial={reduceMotion ? false : { rotate: rotation }}
             animate={{
               rotate: rotation,
@@ -217,34 +239,25 @@ export function Projects() {
               ))}
             </div>
 
-            <div className="mt-6 flex flex-wrap items-center gap-5">
-              <Label className="sr-only">Links</Label>
-              {project.links.live && (
-                <a
-                  href={project.links.live}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={`View live demo for ${project.title}`}
-                  className="border-b-2 border-ink font-mono text-xs uppercase tracking-[0.12em] text-ink hover:border-signal-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
-                >
-                  Live ↗
-                </a>
-              )}
-              {project.links.github && (
-                <a
-                  href={project.links.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={`View GitHub repository for ${project.title}`}
-                  className="border-b-2 border-ink font-mono text-xs uppercase tracking-[0.12em] text-ink hover:border-signal-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
-                >
-                  GitHub ↗
-                </a>
-              )}
-            </div>
+            <p className="mt-6 border-t-2 border-ink pt-4 font-mono text-[0.65rem] uppercase tracking-[0.14em] text-ink">
+              Click to open project details ↗
+            </p>
           </motion.article>
         );
-      })}
-    </div>
+        })}
+      </div>
+
+      <AnimatePresence>
+        {activeProject !== null && (
+          <ProjectModal
+            key={activeProject}
+            project={projects[activeProject]}
+            number={String(activeProject + 1).padStart(2, "0")}
+            onClose={closeModal}
+            returnFocusRef={activeTriggerRef}
+          />
+        )}
+      </AnimatePresence>
+    </>
   );
 }
