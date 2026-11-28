@@ -17,10 +17,10 @@ export default function Home() {
       <Nav />
 
       <main id="main" className="pb-16">
-        <div id="top" className="scroll-mt-24 pt-20 sm:pt-8">
+        <div id="top" className="scroll-mt-24 pt-20 sm:pt-6">
           <Container>
             <Masthead />
-            <div className="mt-10 sm:mt-16">
+            <div className="mt-8 sm:mt-10">
               <Hero />
             </div>
           </Container>

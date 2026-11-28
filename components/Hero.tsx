@@ -128,16 +128,21 @@ export function Hero() {
   }, [rowsNumber, podiumCount]);
 
   return (
-    <div ref={rootRef}>
+    <div
+      ref={rootRef}
+      style={{ containerType: "inline-size" }}
+      className="w-full"
+    >
       <h1
         aria-label="Ashish Sharma builds the web."
-        className="block w-full font-display text-[clamp(2.5rem,11vw,9rem)] font-black leading-[0.85] tracking-[-0.02em] text-ink"
+        style={{ fontSize: "clamp(2.25rem, 14.8cqw, 10.5rem)" }}
+        className="block w-full font-display font-black leading-[0.9] tracking-[-0.02em] text-ink"
       >
         <span aria-hidden="true" className="block w-full">
           {headlineLines.map((line, lineIndex) => (
             <span
               key={lineIndex}
-              className="block w-full overflow-hidden whitespace-nowrap pb-[0.1em] pr-[0.1em] -mb-[0.1em] -mr-[0.1em]"
+              className="block w-full overflow-hidden whitespace-nowrap pb-[0.12em] pr-[0.08em] -mb-[0.12em] -mr-[0.08em]"
             >
               <span className="hero-line block w-max whitespace-nowrap">
                 {line.map((word, wordIndex) => (
@@ -154,7 +159,7 @@ export function Hero() {
         </span>
       </h1>
 
-      <div className="mt-10 grid grid-cols-12 gap-x-6 gap-y-10 sm:mt-14">
+      <div className="mt-8 grid grid-cols-12 gap-x-6 gap-y-10 sm:mt-10">
         <div className="col-span-12 md:col-span-5">
           <Label className="mb-3 block">THE LEAD</Label>
           <p className="max-w-prose font-display text-lg leading-relaxed text-ink first-letter:float-left first-letter:mr-2 first-letter:font-black first-letter:text-6xl first-letter:leading-[0.75] sm:text-xl">
@@ -195,10 +200,15 @@ export function Hero() {
         <div className="col-span-12 md:col-span-3">
           <Label className="mb-4 block">DISPATCH NOTE</Label>
           <motion.div
-            className="py-2"
+            className="px-1 py-2"
             style={reduceMotion ? undefined : { y: stampY }}
           >
-            <Stamp rotate={-5}>RUNNER-UP, AI VERSE 2026</Stamp>
+            <Stamp
+              rotate={-5}
+              style={{ fontSize: "clamp(0.62rem, 1.1cqw, 0.7rem)" }}
+            >
+              RUNNER-UP, AI VERSE 2026
+            </Stamp>
           </motion.div>
           <p className="mt-6 font-mono text-xs leading-relaxed text-ink">
             Currently: {focus}, {education[0]?.institution}

@@ -8,10 +8,10 @@ function subscribe() {
 
 function getSnapshot() {
   const now = new Date();
-  const label = new Intl.DateTimeFormat("en-IN", {
-    weekday: "long",
+  const label = new Intl.DateTimeFormat("en-GB", {
+    weekday: "short",
     day: "numeric",
-    month: "long",
+    month: "short",
     year: "numeric",
   })
     .format(now)
@@ -36,7 +36,8 @@ export function MastheadDate() {
   return (
     <time
       dateTime={iso}
-      className="font-mono text-[0.7rem] uppercase tracking-[0.12em] text-ink"
+      style={{ fontSize: "clamp(0.6rem, 1.1cqw, 0.8rem)" }}
+      className="whitespace-nowrap font-mono uppercase tracking-[0.12em] text-ink"
     >
       {label ?? "\u00a0"}
     </time>
