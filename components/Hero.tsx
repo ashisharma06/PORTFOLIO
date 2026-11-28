@@ -1,13 +1,8 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import Image from "next/image";
 import { gsap } from "gsap";
-import {
-  motion,
-  useReducedMotion,
-  useScroll,
-  useTransform,
-} from "framer-motion";
 import {
   achievements,
   education,
@@ -29,9 +24,6 @@ const formatNumber = (value: number) =>
   new Intl.NumberFormat("en-US").format(value);
 
 export function Hero() {
-  const reduceMotion = useReducedMotion();
-  const { scrollYProgress } = useScroll();
-  const stampY = useTransform(scrollYProgress, [0, 0.2], [0, 18]);
   const rootRef = useRef<HTMLDivElement>(null);
   const rowsRef = useRef<HTMLSpanElement>(null);
   const projectsRef = useRef<HTMLSpanElement>(null);
@@ -198,21 +190,40 @@ export function Hero() {
         </div>
 
         <div className="col-span-12 md:col-span-3">
-          <Label className="mb-4 block">DISPATCH NOTE</Label>
-          <motion.div
-            className="px-1 py-2"
-            style={reduceMotion ? undefined : { y: stampY }}
-          >
-            <Stamp
-              rotate={-5}
-              style={{ fontSize: "clamp(0.62rem, 1.1cqw, 0.7rem)" }}
-            >
-              RUNNER-UP, AI VERSE 2026
-            </Stamp>
-          </motion.div>
-          <p className="mt-6 font-mono text-xs leading-relaxed text-ink">
-            Currently: {focus}, {education[0]?.institution}
-          </p>
+          <div className="mx-auto w-full max-w-[18rem] md:max-w-none">
+            <Label className="mb-4 block">PORTRAIT ON FILE</Label>
+            <div className="portrait-frame relative aspect-[4/5] w-full -rotate-[1.5deg] border-2 border-ink bg-paper shadow-[6px_6px_0_0_#111111]">
+              <div className="absolute inset-0 overflow-hidden">
+                <Image
+                  src="/ashish.jpg"
+                  alt="Tight head-and-shoulders portrait of Ashish Sharma."
+                  fill
+                  preload
+                  sizes="(max-width: 767px) 18rem, (max-width: 1023px) 160px, (max-width: 1279px) 220px, 266px"
+                  style={{ objectFit: "cover", objectPosition: "78% 35%" }}
+                  className="portrait-image"
+                />
+                <span
+                  aria-hidden="true"
+                  className="portrait-halftone absolute inset-0"
+                />
+              </div>
+              <div className="absolute -bottom-4 -right-2 z-10 rotate-[4deg] sm:-bottom-5 sm:-right-3">
+                <Stamp
+                  rotate={-5}
+                  style={{ fontSize: "clamp(0.62rem, 1.1cqw, 0.7rem)" }}
+                >
+                  RUNNER-UP, AI VERSE 2026
+                </Stamp>
+              </div>
+            </div>
+            <p className="mt-8 font-mono text-[0.7rem] uppercase tracking-[0.1em] text-ink">
+              FIG. 1: Ashish Sharma, Bengaluru, 2026.
+            </p>
+            <p className="mt-4 font-mono text-xs leading-relaxed text-ink">
+              Currently: {focus}, {education[0]?.institution}
+            </p>
+          </div>
         </div>
       </div>
 

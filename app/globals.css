@@ -143,6 +143,35 @@ body::before {
   }
 }
 
+.portrait-image {
+  filter: grayscale(1) contrast(1.15);
+  transition: filter 400ms ease;
+}
+
+.portrait-halftone {
+  background-image: radial-gradient(
+    circle,
+    rgb(17 17 17 / 0.35) 1px,
+    transparent 1.2px
+  );
+  background-size: 4px 4px;
+  opacity: 0.22;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+
+@media (hover: none), (pointer: coarse) {
+  .portrait-image {
+    filter: grayscale(0) contrast(1.15);
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .portrait-frame:hover .portrait-image {
+    filter: grayscale(0) contrast(1.15);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -151,5 +180,9 @@ body::before {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+
+  .portrait-image {
+    transition: none;
   }
 }
