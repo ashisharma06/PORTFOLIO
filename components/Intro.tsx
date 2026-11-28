@@ -5,29 +5,41 @@ import { AnimatePresence, motion } from "framer-motion";
 
 const STORAGE_KEY = "dispatch-intro-seen";
 
+function hasSeenIntro(): boolean {
+  try {
+    return window.sessionStorage.getItem(STORAGE_KEY) === "1";
+  } catch {
+    // Storage may be blocked; treat as unseen.
+    return false;
+  }
+}
+
+function markIntroSeen(): void {
+  try {
+    window.sessionStorage.setItem(STORAGE_KEY, "1");
+  } catch {
+    // Storage may be blocked; the intro still plays once this load.
+  }
+}
+
 export function Intro() {
   const [visible, setVisible] = useState(true);
 
   useEffect(() => {
-    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    let seen = false;
-
+    let reduced = false;
     try {
-      seen = window.sessionStorage.getItem(STORAGE_KEY) === "1";
+      reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     } catch {
-      // Storage may be blocked; treat as unseen.
+      // MatchMedia may be unavailable; the CSS fallback still ends the intro.
     }
 
-    if (seen || reduced) {
+    if (hasSeenIntro() || reduced) {
+      markIntroSeen();
       window.setTimeout(() => setVisible(false), 0);
       return;
     }
 
-    try {
-      window.sessionStorage.setItem(STORAGE_KEY, "1");
-    } catch {
-      // Storage may be blocked; the intro still plays once this load.
-    }
+    markIntroSeen();
 
     const timer = window.setTimeout(() => setVisible(false), 250);
     return () => window.clearTimeout(timer);
@@ -40,7 +52,7 @@ export function Intro() {
           role="dialog"
           aria-modal="true"
           aria-label="Issue intro"
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-paper"
+          className="dispatch-intro fixed inset-0 z-[100] flex items-center justify-center bg-paper"
           initial={{ y: 0 }}
           exit={{ y: "-100%" }}
           transition={{ duration: 0.7, ease: [0.76, 0, 0.24, 1] }}
@@ -48,7 +60,8 @@ export function Intro() {
           <button
             type="button"
             onClick={() => setVisible(false)}
-            className="absolute right-6 top-6 font-mono text-[0.7rem] uppercase tracking-[0.14em] text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
+            aria-label="Skip intro"
+            className="absolute right-3 top-3 flex h-11 min-w-11 touch-manipulation items-center justify-center font-mono text-[0.7rem] uppercase tracking-[0.14em] text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
           >
             Skip
           </button>

@@ -172,6 +172,24 @@ body::before {
   }
 }
 
+@keyframes intro-auto-dismiss {
+  0%,
+  88% {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+  100% {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+}
+
+.dispatch-intro {
+  animation: intro-auto-dismiss 2.5s ease-in-out forwards;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

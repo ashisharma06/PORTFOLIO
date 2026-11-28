@@ -37,6 +37,7 @@ export function Wins() {
   const renderStory = (item: Achievement, featured: boolean) => (
     <motion.article
       key={item.title}
+      data-js-reveal
       {...reveal}
       className={`border-2 border-ink bg-paper ${
         featured ? "p-6 sm:p-8" : "p-5 sm:p-6"
