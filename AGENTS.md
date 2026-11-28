@@ -9,14 +9,14 @@ DESIGN CONCEPT "The Dispatch": the site looks like a printed zine / newspaper fr
 - Palette: paper #F2ECE0, ink #111111, signal orange #FF4A1C, faded grey-brown #8A8173 for secondary text. No gradients, no glassmorphism, no purple.
 - Fonts via next/font: Fraunces (display serif, heavy weights, tight tracking) and JetBrains Mono (labels, metadata, numbers).
 
-LAYOUT CONCEPT "The Dispatch, Page-Turn Edition":
-- The site is NOT a long scrolling page. It is a stack of 8 full-viewport newspaper pages inside one fixed stage. Native scrolling only drives a pinned animation timeline; the pages turn like real newsprint.
-- Page order: 1 Front Page (masthead + hero), 2 Wins, 3 Dashify, 4 BlogSeek, 5 DocuMind, 6 Commit Story, 7 Toolkit and Education, 8 Contact.
-- Every page's content must fit inside 100dvh with no internal scrolling at 360x640, 768x1024 and 1440x900. Use clamp() typography and container-relative sizing to achieve this.
-- Page-turn engine uses GSAP ScrollTrigger (scrub + pin) and CSS 3D transforms. Framer Motion is used only for in-page micro-interactions.
-- Content animations on a page start when that page becomes the current page, not on generic scroll visibility.
-- prefers-reduced-motion: replace the 3D turn with a simple crossfade and disable parallax and tilt.
-- Performance: animate only transform and opacity, use will-change sparingly, target 60fps, keep heavy pages' effects paused when they are not current.
+LAYOUT CONCEPT "The Dispatch, Long-Scroll Edition":
+- The site is one continuous scrolling newspaper edition, not a pinned stage or a set of full-viewport pages.
+- Section order: masthead + hero, wins ticker and stories, project clippings, toolkit and education, contact, footer.
+- A sticky section index stays available while reading and includes a thin scroll-progress bar. It links to #top, #wins, #work, #toolkit and #contact, and it must not cover section headings on any screen size.
+- The hero is the front-page lead. Projects are individual paper clippings in one Work section; the Wins ticker, toolkit/classifieds and contact rows keep the same print vocabulary.
+- Framer Motion is preferred for in-page reveals and micro-interactions. GSAP is used selectively for scroll-driven detail; heavy below-the-fold sections mount as they approach the viewport.
+- prefers-reduced-motion: disable marquees, parallax, counters and non-essential transitions. All content stays visible and readable without motion.
+- Test at 360x640, 768x1024 and 1440x900. Use fluid type and spacing, avoid horizontal overflow, keep contrast at WCAG AA or better, and preserve visible focus states.
 
 RULES:
 
