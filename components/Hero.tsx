@@ -18,11 +18,11 @@ import {
 import { Label } from "@/components/ui/Label";
 import { Stamp } from "@/components/ui/Stamp";
 
-const headlineLines = [
+const headlineLines: { text: string; accent?: boolean }[][] = [
   [{ text: "ASHISH" }],
   [{ text: "SHARMA" }],
   [{ text: "BUILDS THE" }],
-  [{ text: "WEB", accent: true }, { text: "." }],
+  [{ text: "WEB.", accent: true }],
 ];
 
 const formatNumber = (value: number) =>
@@ -131,12 +131,15 @@ export function Hero() {
     <div ref={rootRef}>
       <h1
         aria-label="Ashish Sharma builds the web."
-        className="font-display text-[9vw] font-black leading-[0.85] tracking-tighter text-ink sm:text-[10vw] lg:text-[12vw]"
+        className="block w-full font-display text-[clamp(2.5rem,11vw,9rem)] font-black leading-[0.85] tracking-[-0.02em] text-ink"
       >
-        <span aria-hidden="true">
+        <span aria-hidden="true" className="block w-full">
           {headlineLines.map((line, lineIndex) => (
-            <span key={lineIndex} className="block overflow-hidden pb-[0.08em]">
-              <span className="hero-line block whitespace-nowrap">
+            <span
+              key={lineIndex}
+              className="block w-full overflow-hidden whitespace-nowrap pb-[0.1em] pr-[0.1em] -mb-[0.1em] -mr-[0.1em]"
+            >
+              <span className="hero-line block w-max whitespace-nowrap">
                 {line.map((word, wordIndex) => (
                   <span
                     key={wordIndex}
